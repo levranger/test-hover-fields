@@ -1,0 +1,20 @@
+.level-picker {
+    display: flex;
+    justify-content: space-between;
+    margin: 120px auto;
+    width: 400px;
+}
+
+.level-picker select {
+    width: 200px;
+    height: 40px;
+}
+
+.start-button {
+    width: 150px;
+    height: 40px;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

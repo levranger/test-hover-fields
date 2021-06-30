@@ -1,23 +1,31 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import LevelPicker from './components/LevelPicker';
+import Field from './components/Field';
+import Hovered from './components/HoveredSquares';
 
 function App() {
+
+    const [modes, setModes] = useState({});
+    const [hoveredSquares, setHoveredSquares] = useState([]);
+
+    useEffect(() => {
+        try {
+            fetch(' http://demo1030918.mockable.io/').then(res => res.json()).then(data => {
+                setModes({...modes, availableModes: data})
+            })
+            console.log(modes)
+        } catch (e) {
+            throw new Error(e)
+        }
+
+    }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LevelPicker modes={modes.availableModes} activeMode={modes?.activeMode || 'easyMode'} setModes={setModes} />
+      <Field fields={modes.activeMode && modes.availableModes[modes.activeMode].field} setHoveredSquares={setHoveredSquares}/>
+      <Hovered hovered={hoveredSquares} />
     </div>
   );
 }
